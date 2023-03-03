@@ -20,26 +20,33 @@ public class TowerBuilderManager : MonoBehaviour
 
     private Tower _newTower;
     private List<MeshRenderer> _allTowerMesh;
-
+    private List<Material> _baseTowerMaterial = new List<Material>();
+    private GridManager _gridManager;
+    
 
     private void Start()
     {
         PlaceTowerBtn._onPlaceTower += TowerPlacement;
+        _gridManager = GridManager._instance;
     }
 
     private void TowerPlacement(Tower newTower)
     {
+        _baseTowerMaterial.Clear();
         _isPlacingTower = true;
         _newTower = Instantiate(newTower, Vector3.zero, Quaternion.identity);
-
-
+        _newTower.transform.SetParent(_towerParent);
+        _gridManager.HideOrShowPreview(true);
         _allTowerMesh = _newTower.GetComponentsInChildren<MeshRenderer>().ToList();
-
+        
         foreach (Renderer item in _allTowerMesh)
         {
+            _baseTowerMaterial.Add(item.material);
             item.material = _greenMat;
         }
     }
+
+
 
     private void Update()
     {
@@ -51,16 +58,36 @@ public class TowerBuilderManager : MonoBehaviour
             Ray ray = _camera.ScreenPointToRay(mousePosition);
             if (Physics.Raycast(ray, out hit, 10000f, _planeLayer))
             {
-                GridManager._instance.GetTile(hit.point);
+                _gridManager.DisplayPreview(hit.point);
                 _newTower.transform.position = new Vector3(Mathf.Round(hit.point.x), _refHeight, Mathf.Round(hit.point.z));
+            }
+
+            if (Input.GetButton("Fire1"))
+            {
+                _isPlacingTower = false;
+                _gridManager.HideOrShowPreview(false);
+
+       
+
+                if (_gridManager.CheckIfCanbuild())
+                {
+                    _gridManager.SetTileHasBeenBuilt();
+                    for (int i = 0; i < _allTowerMesh.Count; i++)
+                    {
+                        _allTowerMesh[i].material = _baseTowerMaterial[i];
+                    }
+                }
+                else
+                {
+
+                    Destroy(_newTower.gameObject);
+                    Debug.Log("Destroy!");
+                }
             }
         }
 
 
-        if (Input.GetButton("Fire1"))
-        {
-            // _isPlacingTower = false;
-        }
+
     }
 
     private void CheckIfCanPlaceAndMove(Vector3 pixelPos, Transform objectToMove)

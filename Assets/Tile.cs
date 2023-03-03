@@ -7,11 +7,15 @@ using UnityEngine;
 public class Tile
 {
 
+    public int _xPos;
+    public int _zPos;
     public bool _isbuilDabble;
     public bool _hasBeenBuilt;
 
-    public Tile(bool isBuildable, bool hasBeenBuild)
+    public Tile(int x_Pos,int z_Pos,bool isBuildable, bool hasBeenBuild)
     {
+        _xPos = x_Pos;
+        _zPos = z_Pos;
         _isbuilDabble = isBuildable;
         _hasBeenBuilt = hasBeenBuild;
     }
