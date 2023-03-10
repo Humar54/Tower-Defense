@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Lvl 4
   m_EditorClassIdentifier: 
   _list:
-  - {fileID: 7992662909124232190, guid: ec6a489a338ba7d409af509a71353b05, type: 3}
-  - {fileID: 7992662909124232190, guid: ec6a489a338ba7d409af509a71353b05, type: 3}
-  - {fileID: 7992662909124232190, guid: ec6a489a338ba7d409af509a71353b05, type: 3}
-  - {fileID: 7992662909124232190, guid: ec6a489a338ba7d409af509a71353b05, type: 3}
+  - {fileID: 2324897058631386592, guid: ec6a489a338ba7d409af509a71353b05, type: 3}
+  - {fileID: 2324897058631386592, guid: ec6a489a338ba7d409af509a71353b05, type: 3}
+  - {fileID: 7685671694012998813, guid: 69ff0136778a7f0449fd2f1c03de670c, type: 3}
+  - {fileID: 7685671694012998813, guid: 69ff0136778a7f0449fd2f1c03de670c, type: 3}
+  _minSpawndelay: 0
+  _maxSpawnDelay: 2

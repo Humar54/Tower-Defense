@@ -11,17 +11,19 @@ public class MoveCamera : MonoBehaviour
     private float _currentCameraSpeed;
     private float _timer;
 
+
     private void Start()
     {
         MoveCameraPointer._OnMouseCloseToBorder += SetCameraSpeed;
+
     }
     void Update()
     {
 
         Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) + Input.GetAxis("Mouse ScrollWheel") * _zoomSpeed * transform.forward;
+
         SetCameraSpeed(direction);
 
-        
     }
 
     private void SetCameraSpeed(Vector3 direction)

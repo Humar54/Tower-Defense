@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6670325586803359412}
   - component: {fileID: 6813778716772059674}
   m_Layer: 0
-  m_Name: IceBall
+  m_Name: IceBall1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,11 +77,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rb: {fileID: 6670325586803359412}
-  _projectileSpeed: 8
   _spawnVFX: {fileID: 8871617546690438775, guid: 2d9b1e3077c3e024da21fa5305d968f5,
     type: 3}
   _collisionVFX: {fileID: 8871617546690438775, guid: 2256bae661b31294ba5dd96f970d4e3b,
     type: 3}
+  _damageType: 1
+  _projectileSpeed: 8
+  _selfDestroyDelay: 10
+  _AOERange: 1
 --- !u!1001 &2737987416419132352
 PrefabInstance:
   m_ObjectHideFlags: 0

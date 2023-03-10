@@ -1,38 +1,106 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    [SerializeField] private int _price;
-    [SerializeField] private int _damage=10;
-    [SerializeField] private float _attackDelay;
-    [SerializeField] private float _attackRange;
-
-    private float _attackTimer;
-
-    [SerializeField] protected Projectile _projectile;
-
-    private List<Enemy> _enemyList;
-    protected virtual void Start()
+    public enum TowerType
     {
-
+        IceTower,
+        FireTower,
+        ArrowTower,
+        DeathTower,
+        Wall,
+    }
+    /*
+    public enum AttackType
+    {
+        Splash,
+        SingleTarget,
+        Split,
     }
 
-    // Update is called once per frame
-    protected virtual void Update()
+    public enum TargetType
     {
-        _attackTimer += Time.deltaTime;
-        _enemyList = GameManager._instance.GetActiveEnemies();
+        Closest,
+        HighestLife,
+    }
+    */
+    [SerializeField] protected Projectile _projectile;
+    [SerializeField] private List<TowerStats> _towerStats;
+    [SerializeField] private TowerType _type;
+    [SerializeField] private GameObject _towerVisual;
 
-        if (_attackTimer >= _attackDelay)
+    private int _price;
+    private int _damage = 10;
+    private float _attackDelay;
+    private float _attackRange;
+    private float _AOERange;
+    private float _attackTimer;
+    private bool _hasBeenBuilt = false;
+
+    private List<Enemy> _enemyList;
+    private int _towerLvl;
+
+    protected virtual void Start()
+    {
+        //UpdateTower();
+        
+    }
+
+    public void UpgradeTower(TowerType type)
+    {
+        Debug.Log("3");
+        if (_type==type)
         {
-            if (EnemyIsInRange())
-            {
-                Attack(GetTarget());
-            }
+            UpdateTower();
+        }
+    }
+    public void UpdateTower()
+    {
+        if(_towerVisual!=null)
+        {
+            Destroy(_towerVisual);
         }
 
+        _towerLvl = GameManager._instance.GetTowerLvl(_type);
+        TowerStats stats = _towerStats[_towerLvl];
+        _towerVisual = Instantiate(stats._visual, transform.position, Quaternion.identity);
+        _towerVisual.transform.SetParent(transform);
+        _price = stats._price;
+        _damage = stats._damage;
+        _attackDelay = stats._attackDelay;
+        _attackRange = stats._attackRange;
+        _projectile = stats._projectile;
+    }
+
+    public TowerStats GetTowerStats()
+    {
+        return _towerStats[GameManager._instance.GetTowerLvl(_type)];
+    }
+
+    protected virtual void Update()
+    {
+        if (_hasBeenBuilt)
+        {
+            _attackTimer += Time.deltaTime;
+            _enemyList = GameManager._instance.GetActiveEnemies();
+
+            if (_attackTimer >= _attackDelay)
+            {
+                if (EnemyIsInRange())
+                {
+                    Attack(GetTarget());
+                }
+            }
+        }
+    }
+
+    public void Build()
+    {
+        _hasBeenBuilt = true;
+        GameManager._onUpdateTower += UpgradeTower;
+   
+        UpdateTower();
     }
 
     public int GetPrice()
@@ -44,7 +112,7 @@ public class Tower : MonoBehaviour
     {
         if (enemy == null) return;
 
-        Projectile newProjectile = Instantiate(_projectile, (transform.position + 2*Vector3.up), Quaternion.identity);
+        Projectile newProjectile = Instantiate(_projectile, (transform.position + 2 * Vector3.up), Quaternion.identity);
         newProjectile.Init(_damage, enemy.transform);
         _attackTimer = 0f;
     }
@@ -61,7 +129,6 @@ public class Tower : MonoBehaviour
         return false;
     }
 
-
     protected virtual Enemy GetTarget()
     {
         Enemy target = null;
@@ -76,5 +143,10 @@ public class Tower : MonoBehaviour
             }
         }
         return target;
+    }
+
+    public TowerType GetTowerType()
+    {
+        return _type;
     }
 }

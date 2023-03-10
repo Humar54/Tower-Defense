@@ -5,7 +5,6 @@ using NaughtyAttributes;
 
 public class GridManager : MonoBehaviour
 {
-
     public static  GridManager _instance;
     [SerializeField] private int _width, _height;
     [SerializeField] private Tile _tilePrefab;
@@ -41,7 +40,6 @@ public class GridManager : MonoBehaviour
     {
         _greenColor = new Color(0f, 1f, 0f, 0.05f);
         _redColor = new Color(1f, 0f, 0f, 0.05f);
-        //DestroyGrid();
         GenerateGrid();
     }
     [Button]
@@ -105,14 +103,9 @@ public class GridManager : MonoBehaviour
                         _tileArray._tiles[x, z] = new Tile(x, z, false, false);
                     }
                 }
-
-
-
             }
         }
     }
-
-
 
     private void WorldPosToTileCoordinate(Vector3 worldPos, out int x,out int z)
     {
@@ -137,7 +130,6 @@ public class GridManager : MonoBehaviour
         {
             return null;
         }
-        
     }
 
     public Tile GetNearbyTile(Tile tile, int xOffset,int zOffset)
@@ -167,9 +159,8 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    public void DisplayPreview(Vector3 pos)
+    public void DisplayPreviewGrid(Vector3 pos)
     {
-
         _centerTile = GetTile(pos);
         if (_centerTile == null) { return; }
 
@@ -192,7 +183,6 @@ public class GridManager : MonoBehaviour
         }
     }
 
-
     public void HideOrShowPreview(bool value)
     {
         foreach (SpriteRenderer renderer in _displayTileList)
@@ -209,7 +199,6 @@ public class GridManager : MonoBehaviour
     public void MoveOutOfSight(int index)
     {
         _displayTileList[index].transform.position = Vector3.one * 1000f;
-
     }
 
     public void SwitchColorDisplayTile(Tile tile, int index)
@@ -223,7 +212,6 @@ public class GridManager : MonoBehaviour
             _displayTileList[index].color = _redColor;
         }
     }
-
     
     [Button]
     private void DestroyGrid()

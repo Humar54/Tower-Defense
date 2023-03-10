@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 5994176029769405169}
   - component: {fileID: 5994176029768306737}
   m_Layer: 0
-  m_Name: FireTowerlvl01
+  m_Name: FireTowerlvl01 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
