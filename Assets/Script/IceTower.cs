@@ -15,4 +15,9 @@ public class IceTower : Tower
     {
         base.Update();
     }
+
+    public override string GetToolTip(int offset)
+    {
+        return base.GetToolTip(offset);
+    }
 }

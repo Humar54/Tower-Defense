@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2530444630118489474}
   - component: {fileID: 4769564496488716688}
+  - component: {fileID: 3031167755662564452}
+  - component: {fileID: -2162583011668964021}
   m_Layer: 0
   m_Name: IceTower
   m_TagString: Untagged
@@ -54,6 +56,33 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e80ebb7d554e8f04ba0b86e5a5e77612, type: 2}
   _type: 0
   _towerVisual: {fileID: 349605998021136834}
+  _towerLvl: 0
+--- !u!114 &3031167755662564452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2530444630118489476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4327f5b1215480347977439cfdee057b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tower: {fileID: 0}
+--- !u!65 &-2162583011668964021
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2530444630118489476}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &4125666615738266209
 GameObject:
   m_ObjectHideFlags: 0

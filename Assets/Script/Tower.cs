@@ -11,20 +11,7 @@ public class Tower : MonoBehaviour
         DeathTower,
         Wall,
     }
-    /*
-    public enum AttackType
-    {
-        Splash,
-        SingleTarget,
-        Split,
-    }
 
-    public enum TargetType
-    {
-        Closest,
-        HighestLife,
-    }
-    */
     [SerializeField] protected Projectile _projectile;
     [SerializeField] private List<TowerStats> _towerStats;
     [SerializeField] private TowerType _type;
@@ -39,7 +26,7 @@ public class Tower : MonoBehaviour
     private bool _hasBeenBuilt = false;
 
     private List<Enemy> _enemyList;
-    private int _towerLvl;
+    public int _towerLvl;
 
     protected virtual void Start()
     {
@@ -55,6 +42,8 @@ public class Tower : MonoBehaviour
             UpdateTower();
         }
     }
+
+    
     public void UpdateTower()
     {
         if(_towerVisual!=null)
@@ -73,8 +62,12 @@ public class Tower : MonoBehaviour
         _projectile = stats._projectile;
     }
 
-    public TowerStats GetTowerStats()
+    public TowerStats GetTowerStats(int offset)
     {
+        if(GameManager._instance.GetTowerLvl(_type) + offset< _towerStats.Count)
+        {
+            return _towerStats[GameManager._instance.GetTowerLvl(_type)+offset];
+        }
         return _towerStats[GameManager._instance.GetTowerLvl(_type)];
     }
 
@@ -99,6 +92,7 @@ public class Tower : MonoBehaviour
     {
         _hasBeenBuilt = true;
         GameManager._onUpdateTower += UpgradeTower;
+        GetComponent<Collider>().enabled = true;
    
         UpdateTower();
     }
@@ -148,5 +142,29 @@ public class Tower : MonoBehaviour
     public TowerType GetTowerType()
     {
         return _type;
+    }
+    public virtual string GetToolTip(int offset)
+    {
+        switch (_type)
+        {
+            case TowerType.IceTower:
+                return $"Hurls ice projectiles to the closest enemy causing  damage in a {GetProjectile(offset)._AOERange}m radius  and slowing enemies for {GetProjectile(offset)._slowDelay}s";
+            case TowerType.FireTower:
+                return $"Hurls fire ball to the closest enemy causing damage in a {GetProjectile(offset)._AOERange}m radius ";
+            case TowerType.ArrowTower:
+                return $"Hurls bolt to the closest enemy causing damage to target";
+            case TowerType.DeathTower:
+                return $"Hurls death ball to the strongest enemy causing massive damage to target";
+            case TowerType.Wall:
+                return $"Block enemy movement";
+            default:
+                break;
+        }
+        return "";
+    }
+
+    public Projectile GetProjectile(int offset)
+    {
+        return GetTowerStats(offset)._projectile;
     }
 }

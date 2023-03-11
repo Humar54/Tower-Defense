@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2530444630118489474}
   - component: {fileID: -2359681951027117912}
+  - component: {fileID: -3972461615991545437}
+  - component: {fileID: -261573852782022760}
   m_Layer: 0
   m_Name: FireTower
   m_TagString: Untagged
@@ -54,6 +56,33 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c0e0ec3657eb69d4ab99c6f0c202660d, type: 2}
   _type: 1
   _towerVisual: {fileID: 505076352176937483}
+  _towerLvl: 0
+--- !u!114 &-3972461615991545437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2530444630118489476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4327f5b1215480347977439cfdee057b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tower: {fileID: 0}
+--- !u!65 &-261573852782022760
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2530444630118489476}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &7152334641353628248
 GameObject:
   m_ObjectHideFlags: 0

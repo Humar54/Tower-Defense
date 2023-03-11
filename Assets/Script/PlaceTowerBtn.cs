@@ -38,7 +38,7 @@ public class PlaceTowerBtn : MonoBehaviour
     }
     private void DisableButton(int money)
     {
-        if(_towerToPlace.GetTowerStats()._price<=money)
+        if(_towerToPlace.GetTowerStats(0)._price<=money)
         {
             _button.interactable = true;
             GetComponent<Shine>().enabled = true;
@@ -49,7 +49,7 @@ public class PlaceTowerBtn : MonoBehaviour
             GetComponent<Shine>().enabled = false;
         }
 
-        int upgradePrice = _towerToPlace.GetTowerStats()._towerUpgradePrice;
+        int upgradePrice = _towerToPlace.GetTowerStats(0)._towerUpgradePrice;
 
         if (upgradePrice <= money && upgradePrice != 0)
         {
@@ -67,7 +67,7 @@ public class PlaceTowerBtn : MonoBehaviour
     {
         if(_towerToPlace.GetTowerType()==type)
         {
-            _towerPriceTxt.text = $"-{_towerToPlace.GetTowerStats()._price.ToString()}$-";
+            _towerPriceTxt.text = $"-{_towerToPlace.GetTowerStats(0)._price.ToString()}$-";
         }
     }
 
@@ -75,7 +75,7 @@ public class PlaceTowerBtn : MonoBehaviour
     {
         if (_towerToPlace.GetTowerType() == type)
         {
-            float price = _towerToPlace.GetTowerStats()._towerUpgradePrice;
+            float price = _towerToPlace.GetTowerStats(0)._towerUpgradePrice;
             if(price == 0)
             {
                 _upgradeBtn.interactable = false;

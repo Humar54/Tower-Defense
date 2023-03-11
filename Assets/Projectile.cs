@@ -19,12 +19,12 @@ public class Projectile : MonoBehaviour
     [SerializeField] private GameObject _spawnVFX;
     [SerializeField] private GameObject _collisionVFX;
 
-    [SerializeField] private DamageType _damageType;
+    public DamageType _damageType;
 
     [SerializeField] private float _projectileSpeed;
     [SerializeField] private float _selfDestroyDelay = 10f;
-    [SerializeField] private float _AOERange;
-    [SerializeField] private float _slowDelay = 5f;
+    [SerializeField] public float _AOERange;
+    [SerializeField] public float _slowDelay = 5f;
 
     private bool _hasBurst = false;
     public void Init(int damage, Transform target)
@@ -91,4 +91,6 @@ public class Projectile : MonoBehaviour
         Destroy(collisionVFX, 2f);
         Destroy(gameObject);
     }
+
+    
 }
