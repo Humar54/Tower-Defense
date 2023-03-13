@@ -32,4 +32,9 @@ public class MoveCameraPointer : MonoBehaviour
             _OnMouseCloseToBorder?.Invoke((new Vector3(xRatio, 0, yRatio)).normalized);
         }
     }
+
+    private void OnDestroy()
+    {
+        //TowerBuilderManager._onEnterExit -= SetCanMoveCamera;
+    }
 }

@@ -12,9 +12,14 @@ public class HealthBar : MonoBehaviour
 
     private float _healthTimer =0f;
 
+
+    private void Start()
+    {
+        transform.LookAt(transform.position + new Vector3(0, 4f, -2f));
+    }
     void Update()
     {
-        transform.LookAt(transform.position +new Vector3(0,4f,-2f));
+
         _healthTimer += Time.deltaTime;
 
         if(_healthTimer >= _displayDelay)

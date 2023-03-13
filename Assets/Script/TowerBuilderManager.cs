@@ -37,6 +37,11 @@ public class TowerBuilderManager : MonoBehaviour, IPointerEnterHandler, IPointer
         _gridManager = GridManager._instance;
     }
 
+    private void OnDestroy()
+    {
+        PlaceTowerBtn._onPlaceTower -= TowerPlacement;
+    }
+
     private void TowerPlacement(Tower newTower)
     {
         _baseTowerMaterial.Clear();

@@ -8,7 +8,7 @@ public class RessourceManager : MonoBehaviour
 
     public static RessourceManager _instance;
     public static Action<int> _onUpdateMoney;
-    [SerializeField] private int _startingMoney=100;
+    [SerializeField] private int _startingMoney = 100;
     [SerializeField] private TextMeshProUGUI _moneyTxt;
 
     private int _money;
@@ -22,7 +22,7 @@ public class RessourceManager : MonoBehaviour
         else
         {
             _instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
     }
 
@@ -33,7 +33,12 @@ public class RessourceManager : MonoBehaviour
         Enemy._onDeath += ReceiveMoney;
     }
 
-    public void ReceiveMoney(int value,Enemy enemy)
+    private void OnDestroy()
+    {
+        Enemy._onDeath -= ReceiveMoney;
+    }
+
+    public void ReceiveMoney(int value, Enemy enemy)
     {
         _money += value;
         _onUpdateMoney?.Invoke(_money);

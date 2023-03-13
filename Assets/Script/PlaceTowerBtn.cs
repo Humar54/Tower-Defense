@@ -27,8 +27,13 @@ public class PlaceTowerBtn : MonoBehaviour
 
         UpdateTowerPrice(_towerToPlace.GetTowerType());
         UpdateTowerUpgradePrice(_towerToPlace.GetTowerType());
+    }
 
-
+    private void OnDestroy()
+    {
+        RessourceManager._onUpdateMoney -= DisableButton;
+        GameManager._onUpdateTower -= UpdateTowerPrice;
+        GameManager._onUpdateTower -= UpdateTowerUpgradePrice;
     }
 
     private void UpgradeTower()
@@ -38,7 +43,7 @@ public class PlaceTowerBtn : MonoBehaviour
     }
     private void DisableButton(int money)
     {
-        if(_towerToPlace.GetTowerStats(0)._price<=money)
+        if (_towerToPlace.GetTowerStats(0)._price <= money)
         {
             _button.interactable = true;
             GetComponent<Shine>().enabled = true;
@@ -65,23 +70,23 @@ public class PlaceTowerBtn : MonoBehaviour
 
     private void UpdateTowerPrice(Tower.TowerType type)
     {
-        if(_towerToPlace.GetTowerType()==type)
+        if (_towerToPlace.GetTowerType() == type)
         {
             _towerPriceTxt.text = $"-{_towerToPlace.GetTowerStats(0)._price.ToString()}$-";
         }
     }
 
-    private void UpdateTowerUpgradePrice (Tower.TowerType type)
+    private void UpdateTowerUpgradePrice(Tower.TowerType type)
     {
         if (_towerToPlace.GetTowerType() == type)
         {
             float price = _towerToPlace.GetTowerStats(0)._towerUpgradePrice;
-            if(price == 0)
+            if (price == 0)
             {
                 _upgradeBtn.interactable = false;
                 _upgradeBtn.GetComponent<Shine>().enabled = false;
             }
-            _towerUpgradePriceTxt.text = price.ToString()+"$";
+            _towerUpgradePriceTxt.text = price.ToString() + "$";
         }
     }
 

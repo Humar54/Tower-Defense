@@ -4,6 +4,7 @@ using UnityEngine;
 using NaughtyAttributes;
 using System;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,11 +19,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private LifeBarUIDisplay _lifeBarUi;
     [SerializeField] private TextMeshProUGUI _waveText;
     [SerializeField] private int _startingLife = 25;
-    [SerializeField] private float _minSpawnDelay, _maxSpawnDelay;
 
     private List<Enemy> _activeEnemyList = new List<Enemy>();
     [SerializeField] private IDictionary<Tower.TowerType, int> _towerLvlDict = new Dictionary<Tower.TowerType, int>();
-    private int _currentLife = 20;
+    private int _currentLife = 1;
     private int _waveEnemyIndex;
     private int _nbEnemyToKill;
     private int _nbEnemyToSpawn;
@@ -39,10 +39,11 @@ public class GameManager : MonoBehaviour
         else
         {
             _instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         Enemy._onReachTheEnd += LoseALife;
         Enemy._onDeath += RemoveAnEnnemy;
+        _onGameOver += GameOver;
 
         _towerLvlDict.Add(Tower.TowerType.ArrowTower, 0);
         _towerLvlDict.Add(Tower.TowerType.Wall, 0);
@@ -51,10 +52,34 @@ public class GameManager : MonoBehaviour
         _towerLvlDict.Add(Tower.TowerType.IceTower, 0);
     }
 
+    private void OnDestroy()
+    {
+        Enemy._onReachTheEnd -= LoseALife;
+        Enemy._onDeath -= RemoveAnEnnemy;
+        _onGameOver -= GameOver;
+    }
+
     private void Start()
     {
         _lifeBarUi.UpdateLifeBar(_currentLife, _startingLife);
         StartCoroutine(NewWave());
+    }
+
+    private void GameOver()
+    {
+        _waveText.text = $"GameOver";
+        _waveText.transform.parent.gameObject.SetActive(true);
+        StartCoroutine(Reload());
+
+    }
+
+    private IEnumerator Reload()
+    {
+        yield return new WaitForSeconds(3f);
+        StopAllCoroutines();
+        LeanTween.cancelAll();
+        SceneManager.LoadScene("Demo1");
+
     }
 
     private void RemoveAnEnnemy(int value, Enemy enemy)
@@ -75,7 +100,7 @@ public class GameManager : MonoBehaviour
     [Button]
     public IEnumerator SpawnEnemy()
     {
-        float randomDelay = UnityEngine.Random.Range(_minSpawnDelay, _maxSpawnDelay);
+        float randomDelay = UnityEngine.Random.Range(_spawnDelayMin, _spawnDelayMax);
         yield return new WaitForSeconds(randomDelay);
 
         if (_nbEnemyToSpawn >= 1)
@@ -106,11 +131,7 @@ public class GameManager : MonoBehaviour
             _waveText.transform.parent.gameObject.SetActive(false);
             StartCoroutine(SpawnEnemy());
         }
-
     }
-
-
-
 
     public Vector3 GetTargetPosition()
     {
@@ -123,6 +144,7 @@ public class GameManager : MonoBehaviour
         if (_currentLife <= 0)
         {
             _currentLife = 0;
+            Enemy._onReachTheEnd -= LoseALife;
             _onGameOver?.Invoke();
         }
         RemoveAnEnnemy(0, enemy);

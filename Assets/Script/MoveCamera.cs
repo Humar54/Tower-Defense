@@ -39,4 +39,9 @@ public class MoveCamera : MonoBehaviour
         _currentCameraSpeed = _timer / _accelerationDelay * _cameraSpeed;
         transform.position += direction * Time.deltaTime * _currentCameraSpeed;
     }
+
+    private void OnDestroy()
+    {
+        MoveCameraPointer._OnMouseCloseToBorder -= SetCameraSpeed;
+    }
 }

@@ -26,6 +26,12 @@ public class ToolTipManager : MonoBehaviour
         ToolTiper._OnDisplayTowertTooltip += ShowTowerWindow;
         ToolTiper._OnHideTooltip += HideAllToolTip;
     }
+    private void OnDestroy()
+    {
+        ToolTiper._OnDisplayEnemytTooltip -= ShowEnemyTooltip;
+        ToolTiper._OnDisplayTowertTooltip -= ShowTowerWindow;
+        ToolTiper._OnHideTooltip -= HideAllToolTip;
+    }
 
     private void ShowTowerWindow(Tower tower, int offset)
     {
