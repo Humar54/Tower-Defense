@@ -21,7 +21,7 @@ MonoBehaviour:
   - {fileID: 7992662909124232190, guid: 429eb0d46495ce04188a6332f2e5f77a, type: 3}
   - {fileID: 7992662909124232190, guid: 429eb0d46495ce04188a6332f2e5f77a, type: 3}
   - {fileID: 7992662909124232190, guid: 429eb0d46495ce04188a6332f2e5f77a, type: 3}
-  - {fileID: 7992662909124232190, guid: 429eb0d46495ce04188a6332f2e5f77a, type: 3}
+  - {fileID: 7685671694012998813, guid: 69ff0136778a7f0449fd2f1c03de670c, type: 3}
   - {fileID: 7992662909124232190, guid: 429eb0d46495ce04188a6332f2e5f77a, type: 3}
   - {fileID: 7992662909124232190, guid: 429eb0d46495ce04188a6332f2e5f77a, type: 3}
   - {fileID: 7992662909124232190, guid: 429eb0d46495ce04188a6332f2e5f77a, type: 3}
@@ -36,3 +36,4 @@ MonoBehaviour:
   - {fileID: 7992662909124232190, guid: 429eb0d46495ce04188a6332f2e5f77a, type: 3}
   _minSpawndelay: 0
   _maxSpawnDelay: 1
+  _waveBonus: 50

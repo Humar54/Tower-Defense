@@ -27,6 +27,8 @@ public class Tower : MonoBehaviour
     private float _AOERange;
     protected float _attackTimer;
     protected bool _hasBeenBuilt = false;
+    private Enemy _target;
+        
 
 
     protected virtual void Start()
@@ -37,7 +39,6 @@ public class Tower : MonoBehaviour
 
     public void UpgradeTower(TowerType type)
     {
-        Debug.Log("3");
         if (_type==type)
         {
             UpdateTower();
@@ -54,6 +55,7 @@ public class Tower : MonoBehaviour
 
         _towerLvl = GameManager._instance.GetTowerLvl(_type);
         TowerStats stats = _towerStats[_towerLvl];
+        if(stats._visual == null) { return; }
         _towerVisual = Instantiate(stats._visual, transform.position, Quaternion.identity);
         _towerVisual.transform.SetParent(transform);
         _price = stats._price;
@@ -83,7 +85,23 @@ public class Tower : MonoBehaviour
             {
                 if (EnemyIsInRange())
                 {
-                    Attack(GetTarget());
+                    if(_target!=null)
+                    {
+                        if ((_target.transform.position - transform.position).magnitude <= _attackRange && !_target.GetIsDead())
+                        {
+                            Attack(_target, transform.position + 2 * Vector3.up);
+                        }
+                        else
+                        {
+                            _target = GetTarget();
+                            Attack(_target, transform.position + 2 * Vector3.up);
+                        }
+                    }
+                    else
+                    {
+                        _target = GetTarget();
+                        Attack(_target, transform.position + 2 * Vector3.up);
+                    }
                 }
             }
         }
@@ -103,11 +121,11 @@ public class Tower : MonoBehaviour
         return _price;
     }
 
-    protected virtual void Attack(Enemy enemy)
+    protected virtual void Attack(Enemy enemy,Vector3 position)
     {
         if (enemy == null) return;
 
-        Projectile newProjectile = Instantiate(_projectile, (transform.position + 2 * Vector3.up), Quaternion.identity);
+        Projectile newProjectile = Instantiate(_projectile, transform.position + 2 * Vector3.up, Quaternion.identity);
         newProjectile.Init(_damage, enemy.transform);
         _attackTimer = 0f;
     }

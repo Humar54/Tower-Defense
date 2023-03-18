@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fa1a66dba3b7eb42b4584621c7c5afe, type: 3}
+  m_Name: Lvl 10
+  m_EditorClassIdentifier: 
+  _list:
+  - {fileID: 2324897058631386592, guid: ec6a489a338ba7d409af509a71353b05, type: 3}
+  - {fileID: 7685671694012998813, guid: 69ff0136778a7f0449fd2f1c03de670c, type: 3}
+  - {fileID: 7992662909124232190, guid: 8e22c28a69f5e6b4ca44c85553ca3fd9, type: 3}
+  - {fileID: 7992662909124232190, guid: 8e22c28a69f5e6b4ca44c85553ca3fd9, type: 3}
+  - {fileID: 7992662909124232190, guid: 8e22c28a69f5e6b4ca44c85553ca3fd9, type: 3}
+  - {fileID: 7992662909124232190, guid: 8e22c28a69f5e6b4ca44c85553ca3fd9, type: 3}
+  - {fileID: 7992662909124232190, guid: 8e22c28a69f5e6b4ca44c85553ca3fd9, type: 3}
+  - {fileID: 7992662909124232190, guid: 8e22c28a69f5e6b4ca44c85553ca3fd9, type: 3}
+  - {fileID: 7685671694012998813, guid: 69ff0136778a7f0449fd2f1c03de670c, type: 3}
+  - {fileID: 2324897058631386592, guid: ec6a489a338ba7d409af509a71353b05, type: 3}
+  - {fileID: 2324897058631386592, guid: ec6a489a338ba7d409af509a71353b05, type: 3}
+  - {fileID: 7992662909124232190, guid: 8e22c28a69f5e6b4ca44c85553ca3fd9, type: 3}
+  - {fileID: 7992662909124232190, guid: 8e22c28a69f5e6b4ca44c85553ca3fd9, type: 3}
+  - {fileID: 7992662909124232190, guid: 8e22c28a69f5e6b4ca44c85553ca3fd9, type: 3}
+  - {fileID: 7992662909124232190, guid: 8e22c28a69f5e6b4ca44c85553ca3fd9, type: 3}
+  - {fileID: 7992662909124232190, guid: 8e22c28a69f5e6b4ca44c85553ca3fd9, type: 3}
+  - {fileID: 7992662909124232190, guid: 8e22c28a69f5e6b4ca44c85553ca3fd9, type: 3}
+  - {fileID: 7992662909124232190, guid: 8e22c28a69f5e6b4ca44c85553ca3fd9, type: 3}
+  - {fileID: 7992662909124232190, guid: 8e22c28a69f5e6b4ca44c85553ca3fd9, type: 3}
+  - {fileID: 7992662909124232190, guid: 8e22c28a69f5e6b4ca44c85553ca3fd9, type: 3}
+  _minSpawndelay: 0
+  _maxSpawnDelay: 0.5
+  _waveBonus: 75

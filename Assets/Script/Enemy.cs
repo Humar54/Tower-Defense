@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int _startingHealth = 100;
 
     [SerializeField] private NavMeshAgent _agent;
+    [SerializeField] private int _lifeCost=1;
     [SerializeField] private Animator _animator;
 
     [SerializeField] private float _runSpeed = 7.0f;
@@ -36,13 +37,14 @@ public class Enemy : MonoBehaviour
     private IEnumerator _armorCoroutine;
     private bool _hasStopped;
     private Vector3 _stoppedPos;
+    AudioSource _deathAudio;
 
 
     void Start()
     {
         _agent.SetDestination(GameManager._instance.GetTargetPosition());
         SetSpeed();
-
+        _deathAudio = GetComponent<AudioSource>();
         _currentHealth = _startingHealth;
     }
 
@@ -76,7 +78,7 @@ public class Enemy : MonoBehaviour
         {
             damageDealt = 1;
         }
-        Debug.Log(damageDealt);
+    
         _currentHealth -= damageDealt;
         _healthBar.UpdateHealthBar(_startingHealth, _currentHealth);
 
@@ -156,6 +158,7 @@ public class Enemy : MonoBehaviour
         StartCoroutine(_armorCoroutine);
     }
 
+
     public void Fast(float delay)
     {
         if(_fastCoroutine!=null)
@@ -202,6 +205,7 @@ public class Enemy : MonoBehaviour
             _animator.SetBool("_Death", true);
             _isDead = true;
             SetSpeed();
+            _deathAudio.Play();
             Destroy(gameObject, 4f);
         }
     }
@@ -231,13 +235,21 @@ public class Enemy : MonoBehaviour
             case Projectile.DamageType.Ice:
                 return _iceArmor + _iceModArmor;
             case Projectile.DamageType.Normal:
-                return _normalModArmor + _normalModArmor;
+                return normalArmor + _normalModArmor;
             default:
                 return 0;
-                break;
         }
     }
 
+    public int GetLifeCost()
+    {
+        return _lifeCost;
+    }
+
+    public bool GetIsDead()
+    {
+        return _isDead;
+    }
     public virtual string GetDescription ()
     {
         return _description;

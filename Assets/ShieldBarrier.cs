@@ -18,8 +18,11 @@ public class ShieldBarrier : MonoBehaviour
         List<Enemy> enemyList = GameManager._instance.GetActiveEnemies();
         foreach (Enemy enemy in enemyList)
         {
-            enemy.Move();
-            enemy.SetSpeed();
+            if(enemy!=null)
+            {
+                enemy.Move();
+                enemy.SetSpeed();
+            }
         }
     }
 }

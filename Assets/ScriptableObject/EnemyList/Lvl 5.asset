@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: Lvl 5
   m_EditorClassIdentifier: 
   _list:
-  - {fileID: 2324897058631386592, guid: ec6a489a338ba7d409af509a71353b05, type: 3}
-  - {fileID: 2324897058631386592, guid: ec6a489a338ba7d409af509a71353b05, type: 3}
-  - {fileID: 7685671694012998813, guid: 69ff0136778a7f0449fd2f1c03de670c, type: 3}
-  - {fileID: 2324897058631386592, guid: ec6a489a338ba7d409af509a71353b05, type: 3}
-  _minSpawndelay: 0
-  _maxSpawnDelay: 2
+  - {fileID: 7992662909124232190, guid: 6d33b263d96a81642946c64c50fe668e, type: 3}
+  _minSpawndelay: 5
+  _maxSpawnDelay: 10
+  _waveBonus: 50

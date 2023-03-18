@@ -26,6 +26,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] public float _AOERange;
     [SerializeField] public float _slowDelay = 5f;
 
+
     private bool _hasBurst = false;
     public void Init(int damage, Transform target)
     {

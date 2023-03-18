@@ -18,5 +18,5 @@ MonoBehaviour:
   _price: 100
   _damage: 30
   _attackDelay: 2
-  _attackRange: 25
+  _attackRange: 20
   _towerUpgradePrice: 0

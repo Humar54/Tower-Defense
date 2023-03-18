@@ -9,17 +9,18 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private Image _healthBar;
     [SerializeField] private CanvasGroup _canvasGroup;
     [SerializeField] private float _displayDelay =2f;
+    [SerializeField] private Vector3 _lookAtPos = new Vector3(0, 4f, -2f);
 
     private float _healthTimer =0f;
 
 
     private void Start()
     {
-        transform.LookAt(transform.position + new Vector3(0, 4f, -2f));
+        
     }
     void Update()
     {
-
+        transform.LookAt(transform.position + _lookAtPos);
         _healthTimer += Time.deltaTime;
 
         if(_healthTimer >= _displayDelay)

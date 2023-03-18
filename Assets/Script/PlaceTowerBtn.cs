@@ -39,9 +39,9 @@ public class PlaceTowerBtn : MonoBehaviour
     private void UpgradeTower()
     {
         _upgradeBtn.interactable = false;
+        RessourceManager._instance.Pay(_towerToPlace.GetTowerStats(0)._towerUpgradePrice);
         _upgradeBtn.GetComponent<Shine>().enabled = false;
         GameManager._instance.IncreaseTowerLvl(_towerToPlace.GetTowerType());
-        Debug.Log("1");
     }
     private void DisableButton(int money)
     {

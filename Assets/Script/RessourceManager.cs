@@ -8,6 +8,7 @@ public class RessourceManager : MonoBehaviour
 
     public static RessourceManager _instance;
     public static Action<int> _onUpdateMoney;
+    [SerializeField] private GameObject _coinIncrease;
     [SerializeField] private int _startingMoney = 100;
     [SerializeField] private TextMeshProUGUI _moneyTxt;
 
@@ -30,6 +31,7 @@ public class RessourceManager : MonoBehaviour
     {
         _money = _startingMoney;
         _onUpdateMoney?.Invoke(_money);
+        _moneyTxt.text = _money.ToString();
         Enemy._onDeath += ReceiveMoney;
     }
 
@@ -43,6 +45,8 @@ public class RessourceManager : MonoBehaviour
         _money += value;
         _onUpdateMoney?.Invoke(_money);
         _moneyTxt.text = _money.ToString();
+        SpawnMoneyUI(value);
+
     }
 
     public void ReceiveMoney(int value)
@@ -50,6 +54,15 @@ public class RessourceManager : MonoBehaviour
         _money += value;
         _onUpdateMoney?.Invoke(_money);
         _moneyTxt.text = _money.ToString();
+        SpawnMoneyUI(value);
+    }
+
+    private void SpawnMoneyUI(int value)
+    {
+        GameObject coinIncrease = Instantiate(_coinIncrease, _moneyTxt.transform.position, Quaternion.identity);
+        coinIncrease.transform.SetParent(_moneyTxt.transform);
+        coinIncrease.GetComponentInChildren<TextMeshProUGUI>().text = $"+{value}";
+        Destroy(coinIncrease, 2f);
     }
 
     public void Pay(int value)

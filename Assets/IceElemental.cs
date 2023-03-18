@@ -27,4 +27,9 @@ public class IceElemental : Enemy
 
         base.Death();
     }
+
+    public override string GetDescription()
+    {
+        return _description.Replace("{0}", _deathRadius.ToString());
+    }
 }

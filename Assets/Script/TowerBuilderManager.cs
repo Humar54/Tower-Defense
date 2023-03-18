@@ -49,6 +49,7 @@ public class TowerBuilderManager : MonoBehaviour, IPointerEnterHandler, IPointer
         _baseTowerMaterial.Clear();
         _isPlacingTower = true;
         _newTower = Instantiate(newTower, Vector3.zero, Quaternion.identity);
+        _newTower.transform.Rotate(new Vector3(0, 180, 0));
         _newTower.transform.SetParent(_towerParent);
         _gridManager.HideOrShowPreview(true);
         _allTowerMesh = _newTower.GetComponentsInChildren<MeshRenderer>().ToList();

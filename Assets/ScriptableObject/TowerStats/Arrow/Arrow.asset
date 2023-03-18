@@ -16,7 +16,7 @@ MonoBehaviour:
   _projectile: {fileID: 2140629362397173692, guid: 0a443aeb94d36434bbca16607ef82bdc,
     type: 3}
   _price: 15
-  _damage: 10
-  _attackDelay: 1.5
+  _damage: 12
+  _attackDelay: 2
   _attackRange: 8
-  _towerUpgradePrice: 125
+  _towerUpgradePrice: 75

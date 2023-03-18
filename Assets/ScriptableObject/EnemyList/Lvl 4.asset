@@ -13,9 +13,21 @@ MonoBehaviour:
   m_Name: Lvl 4
   m_EditorClassIdentifier: 
   _list:
-  - {fileID: 2324897058631386592, guid: ec6a489a338ba7d409af509a71353b05, type: 3}
-  - {fileID: 2324897058631386592, guid: ec6a489a338ba7d409af509a71353b05, type: 3}
   - {fileID: 7685671694012998813, guid: 69ff0136778a7f0449fd2f1c03de670c, type: 3}
+  - {fileID: 4694319398255827107, guid: 70b08112bff996745bf4a20a5ba2754e, type: 3}
+  - {fileID: 4694319398255827107, guid: 70b08112bff996745bf4a20a5ba2754e, type: 3}
+  - {fileID: 4694319398255827107, guid: 70b08112bff996745bf4a20a5ba2754e, type: 3}
+  - {fileID: 4694319398255827107, guid: 70b08112bff996745bf4a20a5ba2754e, type: 3}
+  - {fileID: 2324897058631386592, guid: ec6a489a338ba7d409af509a71353b05, type: 3}
+  - {fileID: 4694319398255827107, guid: 70b08112bff996745bf4a20a5ba2754e, type: 3}
+  - {fileID: 4694319398255827107, guid: 70b08112bff996745bf4a20a5ba2754e, type: 3}
   - {fileID: 7685671694012998813, guid: 69ff0136778a7f0449fd2f1c03de670c, type: 3}
+  - {fileID: 4694319398255827107, guid: 70b08112bff996745bf4a20a5ba2754e, type: 3}
+  - {fileID: 4694319398255827107, guid: 70b08112bff996745bf4a20a5ba2754e, type: 3}
+  - {fileID: 4694319398255827107, guid: 70b08112bff996745bf4a20a5ba2754e, type: 3}
+  - {fileID: 4694319398255827107, guid: 70b08112bff996745bf4a20a5ba2754e, type: 3}
+  - {fileID: 4694319398255827107, guid: 70b08112bff996745bf4a20a5ba2754e, type: 3}
+  - {fileID: 2324897058631386592, guid: ec6a489a338ba7d409af509a71353b05, type: 3}
   _minSpawndelay: 0
   _maxSpawnDelay: 2
+  _waveBonus: 60

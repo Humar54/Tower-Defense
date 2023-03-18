@@ -27,9 +27,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private IDictionary<Tower.TowerType, int> _towerLvlDict = new Dictionary<Tower.TowerType, int>();
     private int _currentLife;
     private int _waveEnemyIndex;
-    private int _level = -1;
+    [SerializeField] private int _level = -1;
     private float _spawnDelayMin;
     private float _spawnDelayMax;
+    
 
     private void Awake()
     {
@@ -43,7 +44,7 @@ public class GameManager : MonoBehaviour
             _instance = this;
             //DontDestroyOnLoad(gameObject);
         }
-        Enemy._onReachTheEnd += LoseALife;
+        Enemy._onReachTheEnd += LoseLife;
         Enemy._onDeath += RemoveAnEnnemy;
         _onGameOver += GameOver;
         
@@ -56,7 +57,7 @@ public class GameManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        Enemy._onReachTheEnd -= LoseALife;
+        Enemy._onReachTheEnd -= LoseLife;
         Enemy._onDeath -= RemoveAnEnnemy;
         _onGameOver -= GameOver;
     }
@@ -135,16 +136,21 @@ public class GameManager : MonoBehaviour
             {
                 _enemyListToSpawn.Add(enemy);
             }
-            _waveText.text = $"Wave {_level}";
+            
+            _waveText.text = $"Wave {_level+1}";
             _waveText.transform.parent.gameObject.SetActive(true);
-            RessourceManager._instance.ReceiveMoney(100);
             yield return new WaitForSeconds(2f);
-
-
+            RessourceManager._instance.ReceiveMoney(_enemyList[_level]._waveBonus);
+            yield return new WaitForSeconds(4f);
             _spawnDelayMin = _enemyList[_level]._minSpawndelay;
             _spawnDelayMax = _enemyList[_level]._maxSpawnDelay;
             _waveText.transform.parent.gameObject.SetActive(false);
             StartCoroutine(SpawnEnemy());
+        }
+        else
+        {
+            _waveText.text = $"You Win!";
+            _waveText.transform.parent.gameObject.SetActive(true);
         }
     }
 
@@ -153,16 +159,25 @@ public class GameManager : MonoBehaviour
         return _target.position;
     }
 
-    private void LoseALife(Enemy enemy)
+    private void LoseLife(Enemy enemy)
     {
-        _currentLife--;
+        _currentLife-=enemy.GetLifeCost();
         if (_currentLife <= 0)
         {
             _currentLife = 0;
-            Enemy._onReachTheEnd -= LoseALife;
+            Enemy._onReachTheEnd -= LoseLife;
             _onGameOver?.Invoke();
         }
-        RemoveAnEnnemy(0, enemy);
+
+        if(_level >= _enemyList.Count-1)
+        {
+
+        }
+        else
+        {
+            RemoveAnEnnemy(0, enemy);
+        }
+
         _lifeBarUi.UpdateLifeBar(_currentLife, _startingLife);
     }
 

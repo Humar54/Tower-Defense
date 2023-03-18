@@ -20,8 +20,8 @@ public class BowTower : Tower
             if (_hasBeenBuilt)
             {
                 _attackTimer += Time.deltaTime;
-                _enemyList = GameManager._instance.GetActiveEnemies();
                 
+                _enemyList = GameManager._instance.GetActiveEnemies().OrderBy(x => (x.transform.position - transform.position).magnitude).ToList();
 
                 if (_attackTimer >= _attackDelay)
                 {
@@ -29,7 +29,7 @@ public class BowTower : Tower
                     if (EnemyIsInRange())
                     {
                         
-                        _enemyList.OrderBy(x => (x.transform.position - transform.position).magnitude);
+                        
                         int limit = 3;
                         if(_enemyList.Count<3)
                         {
@@ -38,13 +38,14 @@ public class BowTower : Tower
 
                         for (int i = 0; i < limit; i++)
                         {
-                            Vector3 direction = (_enemyList[i].transform.position - transform.position).normalized;
+                            Vector3 deplacement = _enemyList[i].transform.position - transform.position;
+                            float distance = deplacement.magnitude;
+                            Vector3 direction = (deplacement).normalized;
                             Vector3 right = GetComponentInChildren<BallistaVisual>()._ballista.forward;
                             float dot = Vector3.Dot(direction, right);
-                            Debug.Log(dot);
-                            if (dot > 0.25f)
+                            if (dot > 0.25f && distance <=_attackRange)
                             {
-                                Attack(_enemyList[i]);
+                                Attack(_enemyList[i], GetComponentInChildren<BallistaVisual>()._spawnPoint.position);
                             }
                         }
  
@@ -53,10 +54,9 @@ public class BowTower : Tower
             }
 
 
-            if (_hasBeenBuilt)
+            if (_hasBeenBuilt && _enemyList.Count!=0)
             {
-                if (GetTarget() == null) { return; }
-                Transform target = GetTarget().transform;
+                Transform target = _enemyList[0].transform;
 
                 _posList.Add(target.position);
                 if (_posList.Count >= 20)
