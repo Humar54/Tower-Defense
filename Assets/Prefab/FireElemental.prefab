@@ -245,6 +245,7 @@ GameObject:
   - component: {fileID: 7576206155895786776}
   - component: {fileID: 4758190609380117002}
   - component: {fileID: 2324897058631386592}
+  - component: {fileID: 8307904226634263269}
   m_Layer: 0
   m_Name: FireElemental
   m_TagString: Untagged
@@ -321,7 +322,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 32
   m_CollisionDetection: 0
 --- !u!114 &2324897058631386592
 MonoBehaviour:
@@ -335,6 +336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b92c8b8477394449ac9c52168442796, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _name: Fire Elemental
   _cashValue: 25
   _startingHealth: 100
   _agent: {fileID: 1484877516670295636}
@@ -346,11 +348,26 @@ MonoBehaviour:
   normalArmor: 7
   _healthBar: {fileID: 5983935826080377037}
   _condition: {fileID: 2118733387655193391}
+  _description: 'Grant double speed to enemies on Death in a {0} m radius '
   _isSlow: 0
   _isFast: 0
   _deathRadius: 4
   _speedBonusDelay: 10
   _vfx: {fileID: 854743854168186917, guid: 911e809d3ede3044eaf65aaef02e9b73, type: 3}
+--- !u!114 &8307904226634263269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917199211672872494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4327f5b1215480347977439cfdee057b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tower: {fileID: 0}
+  _offset: 0
 --- !u!1 &1617741197111621032
 GameObject:
   m_ObjectHideFlags: 0

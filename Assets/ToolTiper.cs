@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using NaughtyAttributes;
 
 public class ToolTiper : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -10,6 +11,7 @@ public class ToolTiper : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public static Action<Enemy> _OnDisplayEnemytTooltip;
     public static Action _OnHideTooltip;
 
+    
     [SerializeField] private Tower _tower;
     [Range(0, 1)][SerializeField] private int _offset;
     private Enemy _enemy;

@@ -40,10 +40,12 @@ public class Projectile : MonoBehaviour
     {
         if (_target == null && !_hasBurst)
         {
+            
             Destroy(gameObject);
             _hasBurst = true;
             return;
         }
+        transform.LookAt(_target);
         _rb.velocity = (_target.position - transform.position).normalized * _projectileSpeed;
     }
 
@@ -78,7 +80,7 @@ public class Projectile : MonoBehaviour
                 {
                     other.GetComponent<Enemy>().Slow(_slowDelay);
                 }
-                
+
             }
         }
     }
@@ -87,10 +89,14 @@ public class Projectile : MonoBehaviour
     {
         GameObject collisionVFX = Instantiate(_collisionVFX, transform.position, Quaternion.identity);
         float previousScale = collisionVFX.transform.localScale.x;
-        collisionVFX.transform.localScale = new Vector3(previousScale, previousScale, previousScale) * _AOERange;
+        if (_AOERange != 0)
+        {
+            collisionVFX.transform.localScale = new Vector3(previousScale, previousScale, previousScale) * _AOERange;
+        }
+
         Destroy(collisionVFX, 2f);
         Destroy(gameObject);
     }
 
-    
+
 }

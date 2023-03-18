@@ -21,17 +21,19 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _startingLife = 25;
 
     private List<Enemy> _activeEnemyList = new List<Enemy>();
+    private List<Enemy> _enemyListToSpawn = new List<Enemy>();
+    private List<Enemy> _enemyListToKilled = new List<Enemy>();
+
     [SerializeField] private IDictionary<Tower.TowerType, int> _towerLvlDict = new Dictionary<Tower.TowerType, int>();
-    private int _currentLife = 1;
+    private int _currentLife;
     private int _waveEnemyIndex;
-    private int _nbEnemyToKill;
-    private int _nbEnemyToSpawn;
     private int _level = -1;
     private float _spawnDelayMin;
     private float _spawnDelayMax;
 
     private void Awake()
     {
+        _currentLife = _startingLife;
         if (_instance != null)
         {
             Destroy(gameObject);
@@ -44,7 +46,7 @@ public class GameManager : MonoBehaviour
         Enemy._onReachTheEnd += LoseALife;
         Enemy._onDeath += RemoveAnEnnemy;
         _onGameOver += GameOver;
-
+        
         _towerLvlDict.Add(Tower.TowerType.ArrowTower, 0);
         _towerLvlDict.Add(Tower.TowerType.Wall, 0);
         _towerLvlDict.Add(Tower.TowerType.DeathTower, 0);
@@ -85,10 +87,14 @@ public class GameManager : MonoBehaviour
     private void RemoveAnEnnemy(int value, Enemy enemy)
     {
         _activeEnemyList.Remove(enemy);
-        _nbEnemyToKill--;
-        if (_nbEnemyToKill <= 0)
+        
+        if (_enemyListToKilled.Count >= 1)
         {
-            StartCoroutine(NewWave());
+            _enemyListToKilled.Remove(enemy);
+            if (_enemyListToKilled.Count <= 0)
+            {
+                StartCoroutine(NewWave());
+            }
         }
     }
 
@@ -103,11 +109,15 @@ public class GameManager : MonoBehaviour
         float randomDelay = UnityEngine.Random.Range(_spawnDelayMin, _spawnDelayMax);
         yield return new WaitForSeconds(randomDelay);
 
-        if (_nbEnemyToSpawn >= 1)
+        if (_enemyListToSpawn.Count >= 1)
         {
             int randomSpawnerIndex = UnityEngine.Random.Range(0, _spawnerList.Count);
-            _nbEnemyToSpawn--;
-            Enemy newEnemy = Instantiate(_enemyList[_level]._list[_waveEnemyIndex], _spawnerList[randomSpawnerIndex].position, Quaternion.identity);
+            
+            Enemy newEnemy = Instantiate(_enemyListToSpawn[0], _spawnerList[randomSpawnerIndex].position, Quaternion.identity);
+
+            _enemyListToKilled.Add(newEnemy);
+            _enemyListToSpawn.RemoveAt(0);
+
             _activeEnemyList.Add(newEnemy);
             _waveEnemyIndex++;
             StartCoroutine(SpawnEnemy());
@@ -120,12 +130,17 @@ public class GameManager : MonoBehaviour
         if (_level < _enemyList.Count)
         {
             _waveEnemyIndex = 0;
-            _nbEnemyToKill = _enemyList[_level]._list.Count;
-            _nbEnemyToSpawn = _enemyList[_level]._list.Count;
+
+            foreach (Enemy enemy in _enemyList[_level]._list)
+            {
+                _enemyListToSpawn.Add(enemy);
+            }
             _waveText.text = $"Wave {_level}";
             _waveText.transform.parent.gameObject.SetActive(true);
             RessourceManager._instance.ReceiveMoney(100);
             yield return new WaitForSeconds(2f);
+
+
             _spawnDelayMin = _enemyList[_level]._minSpawndelay;
             _spawnDelayMax = _enemyList[_level]._maxSpawnDelay;
             _waveText.transform.parent.gameObject.SetActive(false);

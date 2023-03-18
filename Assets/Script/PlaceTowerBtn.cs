@@ -38,6 +38,8 @@ public class PlaceTowerBtn : MonoBehaviour
 
     private void UpgradeTower()
     {
+        _upgradeBtn.interactable = false;
+        _upgradeBtn.GetComponent<Shine>().enabled = false;
         GameManager._instance.IncreaseTowerLvl(_towerToPlace.GetTowerType());
         Debug.Log("1");
     }

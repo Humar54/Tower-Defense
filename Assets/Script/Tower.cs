@@ -11,22 +11,23 @@ public class Tower : MonoBehaviour
         DeathTower,
         Wall,
     }
+    public int _towerLvl;
 
     [SerializeField] protected Projectile _projectile;
     [SerializeField] private List<TowerStats> _towerStats;
     [SerializeField] private TowerType _type;
     [SerializeField] private GameObject _towerVisual;
 
+    protected List<Enemy> _enemyList;
+
     private int _price;
     private int _damage = 10;
-    private float _attackDelay;
-    private float _attackRange;
+    protected float _attackDelay;
+    protected float _attackRange;
     private float _AOERange;
-    private float _attackTimer;
-    private bool _hasBeenBuilt = false;
+    protected float _attackTimer;
+    protected bool _hasBeenBuilt = false;
 
-    private List<Enemy> _enemyList;
-    public int _towerLvl;
 
     protected virtual void Start()
     {
@@ -111,10 +112,11 @@ public class Tower : MonoBehaviour
         _attackTimer = 0f;
     }
 
-    private bool EnemyIsInRange()
+    protected bool EnemyIsInRange()
     {
         foreach (Enemy enemy in _enemyList)
         {
+            if(enemy==null) { continue; }
             if ((enemy.transform.position - transform.position).magnitude <= _attackRange)
             {
                 return true;
@@ -129,11 +131,14 @@ public class Tower : MonoBehaviour
         float minDist = 10000f;
         foreach (Enemy enemy in _enemyList)
         {
-            float dist = (enemy.transform.position - transform.position).magnitude;
-            if (dist <= minDist && dist <= _attackRange)
+            if(enemy!=null)
             {
-                target = enemy;
-                minDist = dist;
+                float dist = (enemy.transform.position - transform.position).magnitude;
+                if (dist <= minDist && dist <= _attackRange)
+                {
+                    target = enemy;
+                    minDist = dist;
+                }
             }
         }
         return target;

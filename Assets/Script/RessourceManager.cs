@@ -58,4 +58,9 @@ public class RessourceManager : MonoBehaviour
         _onUpdateMoney?.Invoke(_money);
         _moneyTxt.text = _money.ToString();
     }
+
+    public int GetMoney()
+    {
+        return _money;
+    }
 }

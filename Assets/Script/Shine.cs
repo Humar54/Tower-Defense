@@ -18,12 +18,12 @@ public class Shine : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        LeanTween.value(_imageList[0].color.a, 1, _delay).setOnUpdate(UpdateAlpha);
+        LeanTween.value(_imageList[0].color.a, 1, _delay).setOnUpdate(UpdateAlpha).setOnComplete(CancelLeanTween);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        LeanTween.value(_imageList[0].color.a, 0, _delay).setOnUpdate(UpdateAlpha);
+        LeanTween.value(_imageList[0].color.a, 0, _delay).setOnUpdate(UpdateAlpha).setOnComplete(CancelLeanTween);
     }
 
     private void UpdateAlpha(float newAlpha)
@@ -36,11 +36,20 @@ public class Shine : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void OnDisable()
     {
-        LeanTween.cancelAll();
+        
         foreach (Image image in _imageList)
         {
             image.color = new Color(0, 0, 0, 1);
         }
+    }
+
+    private void CancelLeanTween()
+    {
+        //LeanTween.cancelAll();
+    }
+    private void OnDestroy()
+    {
+        LeanTween.cancelAll();
     }
 
     private void OnEnable()

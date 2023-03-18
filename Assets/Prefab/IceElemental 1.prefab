@@ -245,6 +245,7 @@ GameObject:
   - component: {fileID: 7576206155895786776}
   - component: {fileID: 4758190609380117002}
   - component: {fileID: 7685671694012998813}
+  - component: {fileID: 8952577807260834714}
   m_Layer: 0
   m_Name: IceElemental 1
   m_TagString: Untagged
@@ -321,7 +322,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 32
   m_CollisionDetection: 0
 --- !u!114 &7685671694012998813
 MonoBehaviour:
@@ -335,6 +336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83e177ce60d0e59409b1bac982d15968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _name: Ice Elemental
   _cashValue: 25
   _startingHealth: 100
   _agent: {fileID: 1484877516670295636}
@@ -346,11 +348,26 @@ MonoBehaviour:
   normalArmor: 7
   _healthBar: {fileID: 5983935826080377037}
   _condition: {fileID: 2118733387655193391}
+  _description: 'Grant ice armor to enemies on Death in a {0} m radius '
   _isSlow: 0
   _isFast: 0
   _deathRadius: 3
   _armorBonusDelay: 10
   _vfx: {fileID: 8871617546690438775, guid: 764caa6c58eeb1a4a935117023e6a330, type: 3}
+--- !u!114 &8952577807260834714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917199211672872494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4327f5b1215480347977439cfdee057b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tower: {fileID: 0}
+  _offset: 0
 --- !u!1 &1617741197111621032
 GameObject:
   m_ObjectHideFlags: 0

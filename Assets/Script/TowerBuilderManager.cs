@@ -31,6 +31,8 @@ public class TowerBuilderManager : MonoBehaviour, IPointerEnterHandler, IPointer
 
     private bool _previousCanBuild;
 
+
+
     private void Start()
     {
         PlaceTowerBtn._onPlaceTower += TowerPlacement;

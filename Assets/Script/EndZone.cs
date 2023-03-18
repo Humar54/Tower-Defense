@@ -5,6 +5,7 @@ using UnityEngine;
 public class EndZone : MonoBehaviour
 {
     [SerializeField] private GameObject _endVFX;
+
     private void OnTriggerEnter(Collider other)
     {
         Enemy currentEnemy = other.GetComponent<Enemy>();

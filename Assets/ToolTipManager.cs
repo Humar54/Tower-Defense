@@ -3,22 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using NaughtyAttributes;
 
 public class ToolTipManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _towerWindow;
-    [SerializeField] private GameObject _enemyWindow;
+
+    
+    [BoxGroup("Tower")][SerializeField] private Image _attackTypeImage;
+    [BoxGroup("Tower")][SerializeField] TextMeshProUGUI _damageTxt;
+    [BoxGroup("Tower")][SerializeField] TextMeshProUGUI _attackRateTxt;
+    [BoxGroup("Tower")][SerializeField] TextMeshProUGUI _attackRangeTxt;
+    [BoxGroup("Tower")][SerializeField] TextMeshProUGUI _lvlTxt;
+    [BoxGroup("Tower")][SerializeField] TextMeshProUGUI _descriptionTxt;
+    [BoxGroup("Enemy")][SerializeField] TextMeshProUGUI _name,_speed,_hitPoint;
+    [BoxGroup("Enemy")][SerializeField] TextMeshProUGUI _frostArmor,_fireArmor,_normalArmor;
+    [BoxGroup("Enemy")][SerializeField] TextMeshProUGUI _description;
+    [BoxGroup("Tower")][SerializeField] private GameObject _towerWindow;
+    [BoxGroup("Enemy")][SerializeField] private GameObject _enemyWindow;
 
     [SerializeField] private Sprite _normalDamage;
     [SerializeField] private Sprite _fireDamage;
     [SerializeField] private Sprite _iceDamage;
 
-    [SerializeField] private Image _attackTypeImage;
-    [SerializeField] TextMeshProUGUI _damageTxt;
-    [SerializeField] TextMeshProUGUI _attackRateTxt;
-    [SerializeField] TextMeshProUGUI _attackRangeTxt;
-    [SerializeField] TextMeshProUGUI _lvlTxt;
-    [SerializeField] TextMeshProUGUI _descriptionTxt;
+    private Enemy _enemy;
+    private bool _isShowingEnemy;
 
     private void Start()
     {
@@ -38,18 +46,22 @@ public class ToolTipManager : MonoBehaviour
         _towerWindow.SetActive(true);
         _enemyWindow.SetActive(false);
         UpdateTowerWindow(tower,offset);
+        _isShowingEnemy = false;
     }
 
     private void ShowEnemyTooltip(Enemy enemy)
     {
+        _enemy = enemy;
         _towerWindow.SetActive(false);
         _enemyWindow.SetActive(true);
+        _isShowingEnemy = true;
     }
 
     private void HideAllToolTip()
     {
         _towerWindow.SetActive(false);
         _enemyWindow.SetActive(false);
+        _isShowingEnemy = false;
     }
 
     private void UpdateTowerWindow(Tower tower,int offset)
@@ -74,4 +86,24 @@ public class ToolTipManager : MonoBehaviour
         _lvlTxt.text = (GameManager._instance.GetTowerLvl(tower.GetTowerType()) +offset+1).ToString();
         _descriptionTxt.text = tower.GetToolTip(offset);
     }
+
+    private void UpdateEnemyWindow(Enemy enemy)
+    {
+        if (enemy == null) { return; }
+        _name.text = enemy._name;
+        _speed.text = enemy.GetAgent().velocity.magnitude.ToString("F1");
+        _hitPoint.text = enemy.GetCurrentHealth().ToString();
+        _frostArmor.text = enemy.GetEnemyArmor(Projectile.DamageType.Ice).ToString();
+        _fireArmor.text = enemy.GetEnemyArmor(Projectile.DamageType.Fire).ToString();
+        _normalArmor.text = enemy.GetEnemyArmor(Projectile.DamageType.Normal).ToString();
+        _description.text = enemy.GetDescription();
+    }
+
+    private void Update()
+    {
+        if (!_isShowingEnemy) return; 
+        UpdateEnemyWindow(_enemy);
+    }
+
+
 }

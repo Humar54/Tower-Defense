@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
+    public string _name;
 
     [SerializeField] private int _cashValue = 10;
     [SerializeField] private int _startingHealth = 100;
@@ -19,6 +20,8 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private HealthBar _healthBar;
     [SerializeField] private Condition _condition;
+    [TextArea]
+    [SerializeField] protected string _description;
 
     public static Action<int, Enemy> _onDeath;
     public static Action<Enemy> _onReachTheEnd;
@@ -31,6 +34,8 @@ public class Enemy : MonoBehaviour
     private IEnumerator _slowCoroutine;
     private IEnumerator _fastCoroutine;
     private IEnumerator _armorCoroutine;
+    private bool _hasStopped;
+    private Vector3 _stoppedPos;
 
 
     void Start()
@@ -44,17 +49,18 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         _animator.SetFloat("_Speed", _agent.velocity.magnitude / _runSpeed);
+        if(_hasStopped)
+        {
+            transform.position = _stoppedPos;
+        }
     }
 
     public void TakeDamage(Projectile.DamageType type, int damage)
     {
-
-
         int damageDealt = 0;
         switch (type)
         {
             case Projectile.DamageType.Fire:
-
                 damageDealt = damage - (_fireArmor + _fireModArmor);
                 break;
             case Projectile.DamageType.Ice:
@@ -81,7 +87,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void  SetSpeed()
+    public void  SetSpeed()
     {
         if(_isFast&&_isSlow)
         {
@@ -104,6 +110,18 @@ public class Enemy : MonoBehaviour
         {
             _agent.speed = 0f;
         }
+    }
+
+    public void Move()
+    {
+        _hasStopped = false;
+    }
+
+    public void Stop()
+    {
+        _agent.speed = 0f;
+        _hasStopped = true;
+        _stoppedPos = transform.position;
     }
     public void SetModifier(int iceArmor, int fireArmor, int normalArmor)
     {
@@ -191,6 +209,37 @@ public class Enemy : MonoBehaviour
     public void ReachTheEnd()
     {
         _onReachTheEnd?.Invoke(this);
-        Destroy(gameObject);
+        Destroy(gameObject,0.25f);
+    }
+
+    public NavMeshAgent GetAgent()
+    {
+        return _agent;
+    }
+
+    public int GetCurrentHealth()
+    {
+        return _currentHealth;
+    }
+
+    public int GetEnemyArmor(Projectile.DamageType type)
+    {
+        switch (type)
+        {
+            case Projectile.DamageType.Fire:
+                return _fireArmor + _fireModArmor;
+            case Projectile.DamageType.Ice:
+                return _iceArmor + _iceModArmor;
+            case Projectile.DamageType.Normal:
+                return _normalModArmor + _normalModArmor;
+            default:
+                return 0;
+                break;
+        }
+    }
+
+    public virtual string GetDescription ()
+    {
+        return _description;
     }
 }
