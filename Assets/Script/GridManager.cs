@@ -38,8 +38,8 @@ public class GridManager : MonoBehaviour
 
     private void Start()
     {
-        _greenColor = new Color(0f, 1f, 0f, 0.05f);
-        _redColor = new Color(1f, 0f, 0f, 0.05f);
+        _greenColor = new Color(0f, 1f, 0f, 0.15f);
+        _redColor = new Color(1f, 0f, 0f, 0.15f);
         GenerateGrid();
     }
     [Button]

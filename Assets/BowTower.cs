@@ -5,18 +5,12 @@ using System.Linq;
 
 public class BowTower : Tower
 {
-    Transform _currentTarget;
-    Transform _previousTarget;
-
     private List<Vector3> _posList =new List<Vector3>();
-
-    private float ratio;
 
     protected override void Update()
     {
         if(GameManager._instance.GetTowerLvl(TowerType.ArrowTower)>=2)
         {
-
             if (_hasBeenBuilt)
             {
                 _attackTimer += Time.deltaTime;
@@ -25,11 +19,8 @@ public class BowTower : Tower
 
                 if (_attackTimer >= _attackDelay)
                 {
-                    
                     if (EnemyIsInRange())
                     {
-                        
-                        
                         int limit = 3;
                         if(_enemyList.Count<3)
                         {
@@ -48,11 +39,9 @@ public class BowTower : Tower
                                 Attack(_enemyList[i], GetComponentInChildren<BallistaVisual>()._spawnPoint.position);
                             }
                         }
- 
                     }
                 }
             }
-
 
             if (_hasBeenBuilt && _enemyList.Count!=0)
             {
@@ -71,15 +60,15 @@ public class BowTower : Tower
                 Average /= _posList.Count;
                 OrientBalistaTowardTarget(Average);
             }
-
         }
         else
         {
             base.Update();
             if (_hasBeenBuilt)
             {
-                if (GetTarget() == null) { return; }
-                Transform target = GetTarget().transform;
+                Enemy enemy = GetTarget();
+                if (enemy == null) { return; }
+                Transform target = enemy.transform;
 
                 _posList.Add(target.position);
                 if (_posList.Count >= 20)

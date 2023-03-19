@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 661e9d82bb4183f4f9dd4fe33fb1dc91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _towerLvl: 0
   _projectile: {fileID: 6813778716772059674, guid: 07a76110a122fc645b9f60f52b4fbc67,
     type: 3}
   _towerStats:
@@ -54,8 +55,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cf221d12013ca854395ceac2825ebc56, type: 2}
   - {fileID: 11400000, guid: e80ebb7d554e8f04ba0b86e5a5e77612, type: 2}
   _type: 0
-  _towerVisual: {fileID: 0}
-  _towerLvl: 0
+  _towerVisual: {fileID: 4125666615738266209}
 --- !u!114 &3031167755662564452
 MonoBehaviour:
   m_ObjectHideFlags: 0

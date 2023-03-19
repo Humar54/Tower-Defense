@@ -19,8 +19,9 @@ public class ShieldButton : MonoBehaviour
 
     public void ActivateShield()
     {
+        StopAllCoroutines();
         RessourceManager._instance.Pay(_shieldCost);
-        _shieldCost += 50;
+        _shieldCost += 25;
         _textCash.text = $"-{_shieldCost.ToString()}-$";
         DisableButton(RessourceManager._instance.GetMoney());
         _shield.SetActive(true);

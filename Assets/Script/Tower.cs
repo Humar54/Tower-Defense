@@ -28,36 +28,31 @@ public class Tower : MonoBehaviour
     protected float _attackTimer;
     protected bool _hasBeenBuilt = false;
     private Enemy _target;
-        
+
 
 
     protected virtual void Start()
     {
         //UpdateTower();
-        
+
     }
 
     public void UpgradeTower(TowerType type)
     {
-        if (_type==type)
+        if (_type == type)
         {
             UpdateTower();
         }
     }
 
-    
+
     public void UpdateTower()
     {
-        if(_towerVisual!=null)
-        {
-            Destroy(_towerVisual);
-        }
-
+        Destroy(_towerVisual.transform.GetChild(0).gameObject);
         _towerLvl = GameManager._instance.GetTowerLvl(_type);
         TowerStats stats = _towerStats[_towerLvl];
-        if(stats._visual == null) { return; }
-        _towerVisual = Instantiate(stats._visual, transform.position, Quaternion.identity);
-        _towerVisual.transform.SetParent(transform);
+        GameObject newTower = Instantiate(stats._visual, transform.position, Quaternion.identity);
+        newTower.transform.SetParent(_towerVisual.transform);
         _price = stats._price;
         _damage = stats._damage;
         _attackDelay = stats._attackDelay;
@@ -67,9 +62,9 @@ public class Tower : MonoBehaviour
 
     public TowerStats GetTowerStats(int offset)
     {
-        if(GameManager._instance.GetTowerLvl(_type) + offset< _towerStats.Count)
+        if (GameManager._instance.GetTowerLvl(_type) + offset < _towerStats.Count)
         {
-            return _towerStats[GameManager._instance.GetTowerLvl(_type)+offset];
+            return _towerStats[GameManager._instance.GetTowerLvl(_type) + offset];
         }
         return _towerStats[GameManager._instance.GetTowerLvl(_type)];
     }
@@ -85,7 +80,7 @@ public class Tower : MonoBehaviour
             {
                 if (EnemyIsInRange())
                 {
-                    if(_target!=null)
+                    if (_target != null)
                     {
                         if ((_target.transform.position - transform.position).magnitude <= _attackRange && !_target.GetIsDead())
                         {
@@ -112,7 +107,7 @@ public class Tower : MonoBehaviour
         _hasBeenBuilt = true;
         GameManager._onUpdateTower += UpgradeTower;
         GetComponent<Collider>().enabled = true;
-   
+
         UpdateTower();
     }
 
@@ -121,7 +116,7 @@ public class Tower : MonoBehaviour
         return _price;
     }
 
-    protected virtual void Attack(Enemy enemy,Vector3 position)
+    protected virtual void Attack(Enemy enemy, Vector3 position)
     {
         if (enemy == null) return;
 
@@ -134,7 +129,7 @@ public class Tower : MonoBehaviour
     {
         foreach (Enemy enemy in _enemyList)
         {
-            if(enemy==null) { continue; }
+            if (enemy == null) { continue; }
             if ((enemy.transform.position - transform.position).magnitude <= _attackRange)
             {
                 return true;
@@ -149,7 +144,7 @@ public class Tower : MonoBehaviour
         float minDist = 10000f;
         foreach (Enemy enemy in _enemyList)
         {
-            if(enemy!=null)
+            if (enemy != null)
             {
                 float dist = (enemy.transform.position - transform.position).magnitude;
                 if (dist <= minDist && dist <= _attackRange)

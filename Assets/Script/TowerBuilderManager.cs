@@ -18,6 +18,7 @@ public class TowerBuilderManager : MonoBehaviour, IPointerEnterHandler, IPointer
     [SerializeField] private Material _redMat;
     [SerializeField] private Transform _towerParent;
     [SerializeField] private float _refHeight = 6f;
+    [SerializeField] private Transform _rangeSphere;
 
     private Tower _newTower;
     private List<MeshRenderer> _allTowerMesh;
@@ -67,7 +68,7 @@ public class TowerBuilderManager : MonoBehaviour, IPointerEnterHandler, IPointer
         if (_isPlacingTower)
         {
             Vector3 mousePosition = Input.mousePosition;
-
+            
             bool canBuild = false;
 
             RaycastHit hit;
@@ -76,9 +77,10 @@ public class TowerBuilderManager : MonoBehaviour, IPointerEnterHandler, IPointer
             {
                 _gridManager.DisplayPreviewGrid(hit.point);
                 canBuild = _gridManager.CheckIfCanbuild();
-
-                _newTower.transform.position = new Vector3(Mathf.Round(hit.point.x), _refHeight, Mathf.Round(hit.point.z));
-
+                Vector3 pos = new Vector3(Mathf.Round(hit.point.x), _refHeight, Mathf.Round(hit.point.z));
+                _newTower.transform.position = pos;
+                _rangeSphere.transform.localScale = Vector3.one * _newTower.GetTowerStats(0)._attackRange*2;
+                _rangeSphere.transform.position = pos;
                 if (_previousCanBuild != canBuild)
                 {
                     if (canBuild)
@@ -120,36 +122,15 @@ public class TowerBuilderManager : MonoBehaviour, IPointerEnterHandler, IPointer
                 }
             }
         }
-
-
-
-    }
-
-    private void CheckIfCanPlaceAndMove(Vector3 pixelPos, Transform objectToMove)
-    {
-
-    }
-
-
-    private void ColorPreviewTower(bool canBePlaced)
-    {
-        /*
-        if (canBePlaced)
-        {
-            foreach (Renderer item in _allTowerMesh)
-            {
-                item.material = _greenMat;
-            }
-        }
         else
         {
-            foreach (Renderer item in _allTowerMesh)
-            {
-                item.material = _redMat;
-            }
+            _rangeSphere.transform.position = Vector3.one*1000f;
         }
-        */
+
+
+
     }
+
 
     private void ColorSprite(bool IsBuildable, SpriteRenderer renderer)
     {

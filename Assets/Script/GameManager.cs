@@ -24,12 +24,18 @@ public class GameManager : MonoBehaviour
     private List<Enemy> _enemyListToSpawn = new List<Enemy>();
     private List<Enemy> _enemyListToKilled = new List<Enemy>();
 
-    [SerializeField] private IDictionary<Tower.TowerType, int> _towerLvlDict = new Dictionary<Tower.TowerType, int>();
+    //[SerializeField] private IDictionary<Tower.TowerType, int> _towerLvlDict = new Dictionary<Tower.TowerType, int>();
     private int _currentLife;
     private int _waveEnemyIndex;
     [SerializeField] private int _level = -1;
     private float _spawnDelayMin;
     private float _spawnDelayMax;
+
+
+    private int _archerTowerLvl=0;
+    private int _deathTowerLvl=0;
+    private int _fireTowerLvl=0;
+    private int _iceTowerLvl=0;
     
 
     private void Awake()
@@ -47,12 +53,6 @@ public class GameManager : MonoBehaviour
         Enemy._onReachTheEnd += LoseLife;
         Enemy._onDeath += RemoveAnEnnemy;
         _onGameOver += GameOver;
-        
-        _towerLvlDict.Add(Tower.TowerType.ArrowTower, 0);
-        _towerLvlDict.Add(Tower.TowerType.Wall, 0);
-        _towerLvlDict.Add(Tower.TowerType.DeathTower, 0);
-        _towerLvlDict.Add(Tower.TowerType.FireTower, 0);
-        _towerLvlDict.Add(Tower.TowerType.IceTower, 0);
     }
 
     private void OnDestroy()
@@ -101,6 +101,13 @@ public class GameManager : MonoBehaviour
 
     public List<Enemy> GetActiveEnemies()
     {
+        for (int i = 0; i < _activeEnemyList.Count; i++)
+        {
+            if (_activeEnemyList[i]==null)
+            {
+                _activeEnemyList.RemoveAt(i);
+            }
+        }
         return _activeEnemyList;
     }
 
@@ -169,7 +176,7 @@ public class GameManager : MonoBehaviour
             _onGameOver?.Invoke();
         }
 
-        if(_level >= _enemyList.Count-1)
+        if(_level >= _enemyList.Count-1 || _currentLife==0)
         {
 
         }
@@ -183,12 +190,41 @@ public class GameManager : MonoBehaviour
 
     public int GetTowerLvl(Tower.TowerType towerType)
     {
-        return _towerLvlDict[towerType];
+        switch (towerType)
+        {
+            case Tower.TowerType.IceTower:
+                return _iceTowerLvl;
+            case Tower.TowerType.FireTower:
+                return _fireTowerLvl;
+            case Tower.TowerType.ArrowTower:
+                return _archerTowerLvl;
+            case Tower.TowerType.DeathTower:
+                return _deathTowerLvl;
+            default:
+                return 0;
+        }
     }
 
     public void IncreaseTowerLvl(Tower.TowerType towerType)
     {
-        _towerLvlDict[towerType]++;
+        switch (towerType)
+        {
+            case Tower.TowerType.IceTower:
+                 _iceTowerLvl++;
+                break;
+            case Tower.TowerType.FireTower:
+                 _fireTowerLvl++;
+                break;
+            case Tower.TowerType.ArrowTower:
+                 _archerTowerLvl++;
+                break;
+            case Tower.TowerType.DeathTower:
+                _deathTowerLvl++;
+                break;
+            default:
+                break;
+              
+        }
         _onUpdateTower?.Invoke(towerType);
     }
 }
