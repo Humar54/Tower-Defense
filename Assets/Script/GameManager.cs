@@ -223,7 +223,6 @@ public class GameManager : MonoBehaviour
                 break;
             default:
                 break;
-              
         }
         _onUpdateTower?.Invoke(towerType);
     }

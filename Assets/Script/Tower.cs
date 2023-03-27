@@ -35,6 +35,8 @@ public class Tower : MonoBehaviour
     {
         //UpdateTower();
 
+        _attackTimer = _attackDelay;
+
     }
 
     public void UpgradeTower(TowerType type)

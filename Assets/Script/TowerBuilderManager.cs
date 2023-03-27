@@ -65,6 +65,15 @@ public class TowerBuilderManager : MonoBehaviour, IPointerEnterHandler, IPointer
 
     private void Update()
     {
+
+        if(Input.GetButton("Cancel"))
+        {
+            _isPlacingTower = false;
+            Destroy(_newTower.gameObject);
+        }
+
+
+
         if (_isPlacingTower)
         {
             Vector3 mousePosition = Input.mousePosition;
@@ -132,6 +141,8 @@ public class TowerBuilderManager : MonoBehaviour, IPointerEnterHandler, IPointer
     }
 
 
+
+
     private void ColorSprite(bool IsBuildable, SpriteRenderer renderer)
     {
         if (IsBuildable)
@@ -147,6 +158,7 @@ public class TowerBuilderManager : MonoBehaviour, IPointerEnterHandler, IPointer
     public void OnPointerEnter(PointerEventData eventData)
     {
         _onEnterExit?.Invoke(false);
+        _isPlacingTower = false;
     }
 
     public void OnPointerExit(PointerEventData eventData)
