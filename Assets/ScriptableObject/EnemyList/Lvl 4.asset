@@ -26,8 +26,10 @@ MonoBehaviour:
   - {fileID: 4694319398255827107, guid: 70b08112bff996745bf4a20a5ba2754e, type: 3}
   - {fileID: 4694319398255827107, guid: 70b08112bff996745bf4a20a5ba2754e, type: 3}
   - {fileID: 4694319398255827107, guid: 70b08112bff996745bf4a20a5ba2754e, type: 3}
-  - {fileID: 4694319398255827107, guid: 70b08112bff996745bf4a20a5ba2754e, type: 3}
   - {fileID: 2324897058631386592, guid: ec6a489a338ba7d409af509a71353b05, type: 3}
+  - {fileID: 4694319398255827107, guid: 70b08112bff996745bf4a20a5ba2754e, type: 3}
+  - {fileID: 4694319398255827107, guid: 70b08112bff996745bf4a20a5ba2754e, type: 3}
+  - {fileID: 4694319398255827107, guid: 70b08112bff996745bf4a20a5ba2754e, type: 3}
   _minSpawndelay: 0
-  _maxSpawnDelay: 2
+  _maxSpawnDelay: 1.75
   _waveBonus: 60

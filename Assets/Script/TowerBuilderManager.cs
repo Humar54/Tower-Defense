@@ -124,6 +124,7 @@ public class TowerBuilderManager : MonoBehaviour, IPointerEnterHandler, IPointer
                     {
                         _allTowerMesh[i].material = _baseTowerMaterial[i];
                     }
+                    _newTower = null; 
                 }
                 else
                 {
@@ -159,6 +160,11 @@ public class TowerBuilderManager : MonoBehaviour, IPointerEnterHandler, IPointer
     {
         _onEnterExit?.Invoke(false);
         _isPlacingTower = false;
+        _gridManager.HideOrShowPreview(false);
+        if (_newTower!=null)
+        {
+            Destroy(_newTower.gameObject);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)

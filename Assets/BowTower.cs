@@ -94,4 +94,16 @@ public class BowTower : Tower
         float ballistaY = ballista.transform.position.y;
         ballista.LookAt(new Vector3(targetPos.x, ballistaY, targetPos.z));
     }
+
+    public override string GetToolTip(int offset)
+    {
+        if(GameManager._instance.GetTowerLvl(_type)+ offset >= 2)
+        {
+            return "Hurls up to 3 bolts to different targets priorizing the closest ones ";
+        }
+        else
+        {
+            return base.GetToolTip(offset);
+        }
+    }
 }

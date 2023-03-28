@@ -15,7 +15,7 @@ public class Tower : MonoBehaviour
 
     [SerializeField] protected Projectile _projectile;
     [SerializeField] private List<TowerStats> _towerStats;
-    [SerializeField] private TowerType _type;
+    [SerializeField] protected TowerType _type;
     [SerializeField] private GameObject _towerVisual;
 
     protected List<Enemy> _enemyList;
@@ -31,13 +31,6 @@ public class Tower : MonoBehaviour
 
 
 
-    protected virtual void Start()
-    {
-        //UpdateTower();
-
-        _attackTimer = _attackDelay;
-
-    }
 
     public void UpgradeTower(TowerType type)
     {
@@ -55,11 +48,14 @@ public class Tower : MonoBehaviour
         TowerStats stats = _towerStats[_towerLvl];
         GameObject newTower = Instantiate(stats._visual, transform.position, Quaternion.identity);
         newTower.transform.SetParent(_towerVisual.transform);
+        
         _price = stats._price;
         _damage = stats._damage;
         _attackDelay = stats._attackDelay;
         _attackRange = stats._attackRange;
         _projectile = stats._projectile;
+
+        _attackTimer = _attackDelay;
     }
 
     public TowerStats GetTowerStats(int offset)

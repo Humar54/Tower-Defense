@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _list:
   - {fileID: 7992662909124232190, guid: 27dd88cdf17132347b8b83a7dfde7483, type: 3}
-  _minSpawndelay: 0
-  _maxSpawnDelay: 0.5
+  _minSpawndelay: 4
+  _maxSpawnDelay: 5
   _waveBonus: 0

@@ -20,7 +20,7 @@ public class MoveCamera : MonoBehaviour
     void Update()
     {
 
-        Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) + Input.GetAxis("Mouse ScrollWheel") * _zoomSpeed * transform.forward;
+        Vector3 direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")) + Input.GetAxisRaw("Mouse ScrollWheel") * _zoomSpeed * transform.forward;
 
         SetCameraSpeed(direction);
 
@@ -30,14 +30,14 @@ public class MoveCamera : MonoBehaviour
     {
         if (direction.magnitude >= 1f)
         {
-            _timer += Time.deltaTime;
+            _timer += Time.unscaledDeltaTime;
         }
         else
         {
             _timer = _accelerationDelay;
         }
         _currentCameraSpeed = _timer / _accelerationDelay * _cameraSpeed;
-        transform.position += direction * Time.deltaTime * _currentCameraSpeed;
+        transform.position += direction * Time.unscaledDeltaTime * _currentCameraSpeed;
     }
 
     private void OnDestroy()
